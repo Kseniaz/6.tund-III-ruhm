@@ -12,29 +12,36 @@
 		$stmt->bind_result($id, $user_id_from_database, $number_plate, $color);
 		$stmt->execute();
 		
-		$row = 1;
+		// tekitan tühja massiivi, kus edaspidi hoian objekte
+		$car_array = array();
 		
+
 		//tee midagi seni, kuni saame ab'ist ühe rea andmeid
 		while($stmt->fetch()){
 			// seda siin sees tehakse 
 			// nii mitu korda kui on ridu
 
-			echo $row." ".$number_plate."<br>";
+			// tekitan objekti, kus hakkan hoidma väärtusi
+			$car = new StdClass();
+			$car->id = $id;
+			$car->plate = $number_plate;
 			
-			//$row = $row + 1;
-			//$row += 1;
-			$row++;
-			
+			//lisan massiivi ühe rea juurde
+			array_push($car_array, $car);
+			//var dump ütleb muutuja tüübi ja sisu
+			//echo "<pre>";
+			//var_dump($car_array);
+			//echo "</pre><br>";
 		}
+		
+		//tagastan massiivi, kus kõik read sees
+		return $car_array;
 		
 		
 		$stmt->close();
 		$mysqli->close();
 	}
 	
-	
-	//käivitan funktsiooni
-	getCarData();
-	
+
 	
 ?>
