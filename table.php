@@ -30,6 +30,7 @@
 		<th>numbrimärk</th>
 		<th>värv</th>
 		<th>X</th>
+		<th>edit</th>
 	</tr>
 	
 	<?php
@@ -37,13 +38,32 @@
 		// massiivi pikkus count()
 		for($i = 0; $i < count($array_of_cars); $i++){
 			//echo $array_of_cars[$i]->id;
-			echo "<tr>";
-			echo "<td>".$array_of_cars[$i]->id."</td>";
-			echo "<td>".$array_of_cars[$i]->user_id."</td>";
-			echo "<td>".$array_of_cars[$i]->plate."</td>";
-			echo "<td>".$array_of_cars[$i]->color."</td>";
-			echo "<td><a href='?delete=".$array_of_cars[$i]->id."'>X</a></td>";
-			echo "</tr>";
+			
+			//kasutaja tahab muuta seda rida
+			if(isset($_GET["edit"]) && $array_of_cars[$i]->id == $_GET["edit"]){
+				
+				echo "<tr>";
+				echo "<td>".$array_of_cars[$i]->id."</td>";
+				echo "<td>".$array_of_cars[$i]->user_id."</td>";
+				echo "<td><input name='plate_number' value='".$array_of_cars[$i]->plate."'></td>";
+				echo "<td><input name='color' value='".$array_of_cars[$i]->color."'></td>";
+				echo "<td><a href='table.php'>cancel<a></td>";
+				echo "<td><input type='submit' name='save'></td>";
+				echo "</tr>";
+				
+			}else{
+				
+				echo "<tr>";
+				echo "<td>".$array_of_cars[$i]->id."</td>";
+				echo "<td>".$array_of_cars[$i]->user_id."</td>";
+				echo "<td>".$array_of_cars[$i]->plate."</td>";
+				echo "<td>".$array_of_cars[$i]->color."</td>";
+				echo "<td><a href='?delete=".$array_of_cars[$i]->id."'>X</a></td>";
+				echo "<td><a href='?edit=".$array_of_cars[$i]->id."'>edit</a></td>";
+				echo "</tr>";
+				
+			}
+			
 		}
 	
 	
